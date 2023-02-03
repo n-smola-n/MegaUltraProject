@@ -9,10 +9,6 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtCore import QSize
 
 
-
-map_file = None
-
-
 class MyWidget(QMainWindow):
     def __init__(self):
         self.flag = True
@@ -25,30 +21,28 @@ class MyWidget(QMainWindow):
         map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.PARAM[0]}," \
                       f"{self.PARAM[1]}&spn={self.PARAM[2]},0.002&l={self.PARAM[3]}"
         response = requests.get(map_request)
-
         self.map_file = "picture.png"
 
         with open(self.map_file, "wb") as file:
             file.write(response.content)
 
         self.pixmap = QPixmap('picture.png')
-
-    def initUI(self):
-        self.photo()
-        self.image.move(100, -20)
-        self.image.resize(600, 600)
         self.image.setPixmap(self.pixmap)
         self.image.show()
 
+    def initUI(self):
+        self.image.move(100, -20)
+        self.image.resize(600, 600)
+
+        self.photo()
+
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_PageUp:
-            self.PARAM[2] += 0.002
-            print(1)
-            self.initUI()
+            self.PARAM[2] += 0.005
+            self.photo()
         if event.key() == Qt.Key_PageDown:
-            self.PARAM[2] -= 0.002
-            print(2)
-            self.initUI()
+            self.PARAM[2] -= 0.005
+            self.photo()
         event.accept()
 
 
