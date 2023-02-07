@@ -49,7 +49,6 @@ class MyWidget(QMainWindow):
             self.map_params['z'] -= 1
             self.photo()
         if event.key() == Qt.Key_Up:
-            #self.ll = [34.6887, 3.0311]
             self.ll[1] = self.ll[1] + 0.0005
             self.map_params['ll'] = ",".join(map(str, self.ll))
             self.photo()
