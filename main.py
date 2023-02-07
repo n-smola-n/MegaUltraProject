@@ -48,6 +48,23 @@ class MyWidget(QMainWindow):
         if event.key() == Qt.Key_PageDown and self.map_params['z'] > 0:
             self.map_params['z'] -= 1
             self.photo()
+        if event.key() == Qt.Key_Up:
+            #self.ll = [34.6887, 3.0311]
+            self.ll[1] = self.ll[1] + 0.0005
+            self.map_params['ll'] = ",".join(map(str, self.ll))
+            self.photo()
+        if event.key() == Qt.Key_Down:
+            self.ll[1] = self.ll[1] - 0.0005
+            self.map_params['ll'] = ",".join(map(str, self.ll))
+            self.photo()
+        if event.key() == Qt.Key_Left:
+            self.ll[0] = self.ll[0] - 0.0005
+            self.map_params['ll'] = ",".join(map(str, self.ll))
+            self.photo()
+        if event.key() == Qt.Key_Right:
+            self.ll[0] = self.ll[0] + 0.0005
+            self.map_params['ll'] = ",".join(map(str, self.ll))
+            self.photo()
         event.accept()
 
 
