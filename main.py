@@ -64,6 +64,15 @@ class MyWidget(QMainWindow):
             self.ll[0] = self.ll[0] + 0.0005
             self.map_params['ll'] = ",".join(map(str, self.ll))
             self.photo()
+        elif event.key() == Qt.Key_Z:
+            self.map_params['l'] = 'sat'
+            self.photo()
+        elif event.key() == Qt.Key_X:
+            self.map_params['l'] = 'map'
+            self.photo()
+        elif event.key() == Qt.Key_C:
+            self.map_params['l'] = 'skl'
+            self.photo()
         event.accept()
 
 
