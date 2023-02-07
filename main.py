@@ -55,7 +55,6 @@ class MyWidget(QMainWindow):
             self.map_params['l'] = 'skl'
         self.photo()
 
-
     def keyPressEvent(self, event):
         s = self.map_params['z']
         s = (17 - s) ** 2 / 100
@@ -65,19 +64,19 @@ class MyWidget(QMainWindow):
         if event.key() == Qt.Key_PageDown and self.map_params['z'] > 0:
             self.map_params['z'] -= 1
             self.photo()
-        if event.key() == Qt.Key_Up:
+        if event.key() == Qt.Key_W:
             self.ll[1] = self.ll[1] + s
             self.map_params['ll'] = ",".join(map(str, self.ll))
             self.photo()
-        if event.key() == Qt.Key_Down:
+        if event.key() == Qt.Key_S:
             self.ll[1] = self.ll[1] - s
             self.map_params['ll'] = ",".join(map(str, self.ll))
             self.photo()
-        if event.key() == Qt.Key_Left:
+        if event.key() == Qt.Key_A:
             self.ll[0] = self.ll[0] - s
             self.map_params['ll'] = ",".join(map(str, self.ll))
             self.photo()
-        if event.key() == Qt.Key_Right:
+        if event.key() == Qt.Key_D:
             self.ll[0] = self.ll[0] + s
             self.map_params['ll'] = ",".join(map(str, self.ll))
             self.photo()
