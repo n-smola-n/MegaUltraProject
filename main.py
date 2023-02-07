@@ -12,15 +12,20 @@ from PyQt5.QtCore import QSize
 class MyWidget(QMainWindow):
     def __init__(self):
         self.flag = True
-        self.PARAM = [34.6887, 3.0311, 0.009, 'sat']
+        self.ll = [34.6887, 3.0311]
+        self.map_params = {'ll': ",".join(map(str, self.ll)),
+                           'l': "sat",
+                           'apikey': "40d1649f-0493-4b70-98ba-98533de7710b",
+                           'z': 6}
         super().__init__()
         uic.loadUi('UI1.ui', self)
         self.initUI()
 
     def photo(self):
-        map_request = f"http://static-maps.yandex.ru/1.x/?ll={self.PARAM[0]}," \
-                      f"{self.PARAM[1]}&spn={self.PARAM[2]},0.002&l={self.PARAM[3]}"
-        response = requests.get(map_request)
+        map_request = "http://static-maps.yandex.ru/1.x/"
+
+        response = requests.get(map_request, params=self.map_params)
+        print(response.status_code)
         self.map_file = "picture.png"
 
         with open(self.map_file, "wb") as file:
@@ -38,10 +43,10 @@ class MyWidget(QMainWindow):
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_PageUp:
-            self.PARAM[2] += 0.005
+            self.map_params['z'] += 1
             self.photo()
         if event.key() == Qt.Key_PageDown:
-            self.PARAM[2] -= 0.005
+            self.map_params['z'] -= 1
             self.photo()
         event.accept()
 
