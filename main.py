@@ -42,10 +42,10 @@ class MyWidget(QMainWindow):
         self.photo()
 
     def keyPressEvent(self, event):
-        if event.key() == Qt.Key_PageUp:
+        if event.key() == Qt.Key_PageUp and self.map_params['z'] < 17:
             self.map_params['z'] += 1
             self.photo()
-        if event.key() == Qt.Key_PageDown:
+        if event.key() == Qt.Key_PageDown and self.map_params['z'] > 0:
             self.map_params['z'] -= 1
             self.photo()
         event.accept()
