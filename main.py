@@ -23,11 +23,9 @@ class MyWidget(QMainWindow):
 
     def photo(self):
         map_request = "http://static-maps.yandex.ru/1.x/"
-
         response = requests.get(map_request, params=self.map_params)
-        print(response.status_code)
-        self.map_file = "picture.png"
 
+        self.map_file = "picture.png"
         with open(self.map_file, "wb") as file:
             file.write(response.content)
 
@@ -35,11 +33,28 @@ class MyWidget(QMainWindow):
         self.image.setPixmap(self.pixmap)
         self.image.show()
 
-    def initUI(self):
-        self.image.move(100, -20)
-        self.image.resize(600, 600)
+    def search(self):
+        pass
 
+
+
+    def initUI(self):
+        self.image.move(50, 10)
+        self.image.resize(700, 500)
         self.photo()
+        self.shema.clicked.connect(self.change_spn)
+        self.sputnik.clicked.connect(self.change_spn)
+        self.gibrid.clicked.connect(self.change_spn)
+
+    def change_spn(self):
+        if self.sender().text() == 'Схема':
+            self.map_params['l'] = 'map'
+        if self.sender().text() == 'Спутник':
+            self.map_params['l'] = 'sat'
+        if self.sender().text() == 'Гибрид':
+            self.map_params['l'] = 'skl'
+        self.photo()
+
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_PageUp:
